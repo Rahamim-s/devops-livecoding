@@ -16,7 +16,15 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-        #TODO: Add any additional configuration for setting up JDK 17
+          distribution: 'adopt'
+          java-package: 'jdk'
+          check-latest: false
+          server-id: 'github'
+          server-username: 'GITHUB_ACTOR'
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          overwrite-settings: true
+          job-status: 'success'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and test with Maven
         run: mvn clean install
