@@ -9,9 +9,6 @@ Testcontainers are Java libraries that allow you to run Docker containers during
 
 # 2) Document your Github Actions configurations.
 Documentation of :
-# CI devops 2023 Workflow
-
-This GitHub Actions workflow is designed for continuous integration (CI) for the devops 2023 project.
 
 ## Trigger Conditions
 The workflow is triggered on:
