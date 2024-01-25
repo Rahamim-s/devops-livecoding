@@ -134,3 +134,4 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/http-server:latest
           push: true
 ```
+![image](https://github.com/Rahamim-s/devops-livecoding/assets/73166051/3ac05914-8b08-4f62-9906-cb61dcc42d60)
