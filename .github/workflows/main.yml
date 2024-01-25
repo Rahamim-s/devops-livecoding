@@ -19,7 +19,7 @@ jobs:
 
       - name: Build and test with Sonar
         working-directory: devops-livecoding/simple-api  # Set the working directory to your Java project directory
-        run: mvn -B verify sonar:sonar -Dsonar.projectKey=Rahamim-s_devops-livecoding -Dsonar.organization=sonarara -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}  --file devops-livecoding/simple-api/pom.xml
+        run: mvn -B verify sonar:sonar -Dsonar.projectKey=alinaghania_devops-livecoding -Dsonar.organization=alinaghania -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }} --file ./simple-api/pom.xml
 
   
   build-and-push-docker-image:
