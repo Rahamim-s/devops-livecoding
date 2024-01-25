@@ -9,8 +9,7 @@ jobs:
   test-backend:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2.5.0
+      - uses: actions/checkout@v2.5.0
       
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -19,9 +18,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and test with Maven
-        working-directory: ./simple-api
+        working-directory: ./simple-api  # Set the working directory to your Java project directory
         run: mvn clean install --batch-mode --show-version --errors
-      
+  
   build-and-push-docker-image:
     needs: test-backend
     runs-on: ubuntu-22.04
@@ -30,4 +29,25 @@ jobs:
         uses: actions/checkout@v2.5.0
 
       - name: Login to DockerHub
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_T
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image and push backend
+        uses: docker/build-push-action@v3
+        with:
+          context: ./simple-api
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-simple-api:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push database
+        uses: docker/build-push-action@v3
+        with:
+          context: ./database
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-database:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
+
+      - name: Build image and push httpd
+        uses: docker/build-push-action@v3
+        with:
+          context: ./http-server
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tp-devops-httpd:latest
+          push: ${{ github.ref == 'refs/heads/main' }}
