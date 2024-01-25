@@ -8,8 +8,6 @@ Testcontainers are Java libraries that allow you to run Docker containers during
 
 
 # 2) Document your Github Actions configurations.
-Documentation of :
-
 ## Trigger Conditions
 The workflow is triggered on:
 - Push events to the 'main' and 'develop' branches.
