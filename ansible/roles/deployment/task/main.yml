@@ -1,0 +1,55 @@
+---
+- name: Create Docker network
+  docker_network:
+    name: my-network
+    state: present
+
+- name: Create Docker volume
+  docker_volume:
+    volume_name: db-volume
+    state: present
+
+- name: Deploy Backend Container
+  docker_container:
+    name: my-api
+    image: rahamim-s/tp-devops-api:latest
+    networks:
+      - name: my-network
+    pull: true
+    state: started
+    restart_policy: always
+
+- name: Deploy Database Container
+  docker_container:
+    name: my-db
+    image: rahamim-s/tp-devops-api:latest
+    networks:
+      - name: my-network
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    pull: true
+    state: started
+    restart_policy: always
+
+- name: Deploy HTTPD Container
+  docker_container:
+    name: httpd
+    image: rahamim-s/tp-devops-api:latest
+    networks:
+      - name: my-network
+    published_ports:
+      - "80:80"
+    pull: true
+    state: started
+    restart_policy: always
+
+- name: Deploy Frontend Container
+  docker_container:
+    name: my-front-end
+    image: rahamim-s/tp-devops-api:latest
+    networks:
+      - name: my-network
+    pull: true
+    state: started
+    restart_policy: always
+# tasks file for roles/deployment
