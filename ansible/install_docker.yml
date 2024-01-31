@@ -1,0 +1,5 @@
+- hosts: all
+  gather_facts: false
+  become: yes
+  roles:
+   - role: 'roles/docker' # Called the docker install role
